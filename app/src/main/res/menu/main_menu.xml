@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="지역 목록"
+        android:id="@+id/location_item"
+        app:showAsAction="always"/>
+    <item
+        android:title="나의 옷장"
+        android:id="@+id/closet_item"
+        app:showAsAction="never"/>
+    <item
+        android:title="설정"
+        android:id="@+id/settings_item"
+        app:showAsAction="never"/>
+</menu>

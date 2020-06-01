@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="뒤로 가기"
+        android:icon="@drawable/ic_chevron_left_black_24dp"
+        android:id="@+id/location_back"
+        app:showAsAction="always">
+    </item>
+    <item
+        android:title="장소 추가"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:id="@+id/location_plus"
+        app:showAsAction="always">
+    </item>
+</menu>
