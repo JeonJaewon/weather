@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -55,13 +56,15 @@ class HomeFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.location_item -> {
-                Toast.makeText(activity,"asd", Toast.LENGTH_SHORT).show()
-//                val frag = LocationFragment.newInstance()
-//                fragmentManager?.beginTransaction()?.replace(R.id.frag_home_layout, frag)
+                val fm = activity?.supportFragmentManager
+                val transaction = fm?.beginTransaction()
+                val frag = LocationFragment()
+                fm?.popBackStack(this.javaClass.simpleName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                transaction?.replace(R.id.main_frag_container, frag)?.commit()
+                transaction?.addToBackStack(this.javaClass.simpleName)
                 return true
             }
             R.id.settings_item -> {
-                Toast.makeText(activity,"asd",Toast.LENGTH_SHORT).show()
                 return true
             }
             else -> {

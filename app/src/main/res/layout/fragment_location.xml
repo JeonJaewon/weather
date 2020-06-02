@@ -4,12 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:id="@+id/frag_location_layout"
     tools:context=".LocationFragment">
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/locationRecycler"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/locationRecycler"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content">-->
+<!--    </androidx.recyclerview.widget.RecyclerView>-->
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
