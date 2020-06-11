@@ -20,7 +20,7 @@ class HomeFragment : Fragment(){
     var curY : Double = 0.0
     val networkTask = NetworkTask()
 
-    lateinit var resText : TextView
+    lateinit var t3hText : TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +42,7 @@ class HomeFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        resText = resCode
+        t3hText = t3h_text
 
         //swipe layout
         swipe_layout.setOnRefreshListener {
@@ -154,7 +154,7 @@ class HomeFragment : Fragment(){
 
         override fun onPostExecute(result: Double?) {
             super.onPostExecute(result)
-            resText.text = result.toString()
+            t3hText.text = result.toString()
         }
 
         // 일의자리 수일 경우 앞에 0 붙이기
