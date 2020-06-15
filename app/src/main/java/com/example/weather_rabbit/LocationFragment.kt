@@ -23,17 +23,9 @@ class LocationFragment : Fragment() {
     var curLatitude = LOCATION_NOT_SET
     var curLongitude = LOCATION_NOT_SET
 
-    companion object {
-        public fun newInstance() : LocationFragment {
-            return LocationFragment()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-
-
     }
 
     override fun onCreateView(
@@ -61,6 +53,7 @@ class LocationFragment : Fragment() {
                 val frag = HomeFragment()
 
                 //위치 정보 수신 종료
+                locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
                 locationManager?.removeUpdates(locationListener)
 
 

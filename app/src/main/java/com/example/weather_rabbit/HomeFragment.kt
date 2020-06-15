@@ -18,7 +18,7 @@ import java.net.URLEncoder
 class HomeFragment : Fragment(){
     var curX : Double = 0.0
     var curY : Double = 0.0
-    val networkTask = NetworkTask()
+    var networkTask = NetworkTask()
 
     lateinit var t3hText : TextView
     override fun onCreateView(
@@ -33,11 +33,11 @@ class HomeFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-        if(arguments != null){
-            curY = arguments?.getDouble("curY")!!
-            curX = arguments?.getDouble("curX")!!
-            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-        }
+//        if(arguments != null){
+//            curY = arguments?.getDouble("curY")!!
+//            curX = arguments?.getDouble("curX")!!
+//            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,10 +48,12 @@ class HomeFragment : Fragment(){
         swipe_layout.setOnRefreshListener {
             swipe_layout.isRefreshing = true
             if(arguments != null){
-                networkTask.cancel(true)
-                curY = arguments?.getDouble("curY")!!
-                curX = arguments?.getDouble("curX")!!
-                networkTask.execute(arrayOf(curX,curY)) //매개변수 넣기
+                if(networkTask.status == AsyncTask.Status.FINISHED){
+                    networkTask = NetworkTask()
+                    networkTask.execute(arrayOf(curX,curY)) //매개변수 넣기
+                    curY = arguments?.getDouble("curY")!!
+                    curX = arguments?.getDouble("curX")!!
+                }
             }
             swipe_layout.isRefreshing = false
         }
@@ -61,6 +63,11 @@ class HomeFragment : Fragment(){
     override fun onResume() {
         super.onResume()
         activity?.invalidateOptionsMenu()
+        if(arguments != null){
+            curY = arguments?.getDouble("curY")!!
+            curX = arguments?.getDouble("curX")!!
+            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
