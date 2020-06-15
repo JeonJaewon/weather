@@ -16,39 +16,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
+            android:background="#6886c5"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:text="New York" />
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                android:text="2020 06 16"/>
+
+            <ImageView
+                android:id="@+id/weather_icon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/date_text"
+                app:srcCompat="@drawable/sun"/>
+
             <TextView
                 android:id="@+id/t3h_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:textSize="70sp"
                 android:textStyle="bold"
+                android:textColor="#FFFFFF"
                 android:textAlignment="center"
+                android:layout_below="@+id/weather_icon"
                 android:text="온도" />
-            <androidx.cardview.widget.CardView
-                android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:layout_below="@id/t3h_text"
-                android:layout_centerHorizontal="true"
-                app:cardCornerRadius="10dp">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:id="@+id/weather_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_menu_help" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:textAlignment="center"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/weather_image"
-                        android:text="오늘의 날씨는" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
+
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

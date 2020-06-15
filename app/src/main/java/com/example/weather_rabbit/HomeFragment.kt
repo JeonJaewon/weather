@@ -22,8 +22,8 @@ class HomeFragment : Fragment(){
     var curX : Double = NOT_SET
     var curY : Double = NOT_SET
     var networkTask = NetworkTask()
-
     lateinit var t3hText : TextView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
