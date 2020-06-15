@@ -10,14 +10,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.xmlpull.v1.XmlPullParser
+import java.io.BufferedReader
+import java.io.File
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.net.URLEncoder
 
 class HomeFragment : Fragment(){
-    var curX : Double = 0.0
-    var curY : Double = 0.0
+    val NOT_SET = -1.0
+    var curX : Double = NOT_SET
+    var curY : Double = NOT_SET
     var networkTask = NetworkTask()
 
     lateinit var t3hText : TextView
@@ -33,17 +36,12 @@ class HomeFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
-//        if(arguments != null){
-//            curY = arguments?.getDouble("curY")!!
-//            curX = arguments?.getDouble("curX")!!
-//            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-//        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         t3hText = t3h_text
-
+        if(curX == 0.0 && curY == 0.0)
+            t3hText.text = "위치 정보 설정이 필요합니다"
         //swipe layout
         swipe_layout.setOnRefreshListener {
             swipe_layout.isRefreshing = true
@@ -63,11 +61,36 @@ class HomeFragment : Fragment(){
     override fun onResume() {
         super.onResume()
         activity?.invalidateOptionsMenu()
-        if(arguments != null){
-            curY = arguments?.getDouble("curY")!!
-            curX = arguments?.getDouble("curX")!!
-            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+
+        // 이미 지역 위치가 설정되어 있는지 확인
+        val file = context?.getFileStreamPath("defaultLocation")
+        if(file != null && file!!.exists()){
+            val os = activity?.openFileInput("defaultLocation")
+            val br = BufferedReader(InputStreamReader(os))
+            val str = br.readLine()
+            if(str != null){
+                curX = str.toDouble()
+                curY = br.readLine().toDouble()
+                if(networkTask.status == AsyncTask.Status.PENDING || networkTask.status == AsyncTask.Status.FINISHED){
+                    networkTask = NetworkTask()
+                    networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+                }
+            }
+
         }
+
+//        if(arguments!=null){
+//            curY = arguments?.getDouble("curY")!!
+//            curX = arguments?.getDouble("curX")!!
+//            if(networkTask.status == AsyncTask.Status.PENDING || networkTask.status == AsyncTask.Status.FINISHED){
+//                networkTask = NetworkTask()
+//                networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+//            }
+//        }
+
+//        if(curX != NOT_SET && curY != NOT_SET && networkTask.status == AsyncTask.Status.FINISHED){
+//            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

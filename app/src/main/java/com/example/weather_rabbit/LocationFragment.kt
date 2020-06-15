@@ -1,6 +1,7 @@
 package com.example.weather_rabbit
 import android.Manifest
 import android.content.Context.LOCATION_SERVICE
+import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -14,6 +15,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import java.io.BufferedOutputStream
+import java.io.BufferedWriter
+import java.io.OutputStreamWriter
 
 class LocationFragment : Fragment() {
     val TO_GRID = 0
@@ -64,6 +68,14 @@ class LocationFragment : Fragment() {
                     bundle.putDouble("curX", tmp!!.x)
                     bundle.putDouble("curY", tmp!!.y)
                     frag.arguments = bundle
+
+                    // 내부 저장소 저장
+                    val os = activity?.openFileOutput("defaultLocation", MODE_PRIVATE)
+                    val bw = BufferedWriter(OutputStreamWriter(os))
+                    // 개행 여부로 x, y 구분
+                    bw.write(tmp.x.toString() + "\n")
+                    bw.write(tmp.y.toString())
+                    bw.flush()
                 }
 
                 // 동일한 프래그먼트가 스택에 여러개 쌓이지 않게..
