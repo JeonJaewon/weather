@@ -41,8 +41,8 @@
 
             <ImageView
                 android:id="@+id/weather_icon"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="60dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/date_text"
@@ -50,16 +50,34 @@
 
             <TextView
                 android:id="@+id/t3h_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:textSize="70sp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:textSize="40sp"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"
                 android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/weather_icon"
                 android:text="온도" />
-
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/weather_icon"
+                android:layout_toRightOf="@id/t3h_text"
+                android:src="@drawable/celsius"/>
+            <fragment
+                android:id="@+id/cloth_card"
+                tools:layout="@layout/fragment_card"
+                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="70dp"
+                android:layout_marginHorizontal="30dp"
+                android:name="com.example.weather_rabbit.CardFragment"
+                android:layout_below="@id/t3h_text">
+            </fragment>
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
