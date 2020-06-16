@@ -55,6 +55,8 @@ class HomeFragment : Fragment(){
             }
             swipe_layout.isRefreshing = false
         }
+        // 홈 프래그먼트의 각종 뷰 날씨에 따라 초기화
+        DisplayInitializer(this).init()
         super.onViewCreated(view, savedInstanceState)
     }
 

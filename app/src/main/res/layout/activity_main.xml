@@ -11,10 +11,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#284184"
+        app:subtitleTextColor="#ffffff"
         android:minHeight="?attr/actionBarSize"
-
-        android:theme="?attr/actionBarTheme" />
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        />
 
     <LinearLayout
         android:id="@+id/main_frag_container"

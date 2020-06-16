@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
-    android:background="@color/colorPrimary"
+    android:background="#284184"
     app:menu="@menu/main_menu"/>
 
