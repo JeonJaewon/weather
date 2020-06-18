@@ -5,18 +5,21 @@
     android:id="@+id/frag_home_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/heavyBlue"
     android:orientation="vertical">
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/heavyBlue">
-
+            android:layout_height="match_parent">
             <TextView
                 android:id="@+id/location_text"
                 android:layout_width="wrap_content"
@@ -79,9 +82,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/t3h_text"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="현재 지역의 기상청 동네 예보 데이터입니다.\n해당 기온에 맞는 옷차림은"
+                android:text="현재 지역의 기상청 동네 예보 데이터입니다."
                 android:textSize="15sp"
                 android:textColor="#FFFFFF"/>
 
@@ -92,17 +95,6 @@
                 android:layout_below="@id/description_text"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical"></LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:gravity="center"
-                android:text="Icon made by Smashicons from www.flaticon.com\nIcon made by Nikita Golubev from www.flaticon.com"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"/>
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
