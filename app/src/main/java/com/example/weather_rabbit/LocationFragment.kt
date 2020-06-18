@@ -15,6 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedOutputStream
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
@@ -48,6 +49,10 @@ class LocationFragment : Fragment() {
 //        super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onPause() {
+        super.onPause()
+        locationManager?.removeUpdates(locationListener)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
@@ -60,7 +65,6 @@ class LocationFragment : Fragment() {
                 locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
                 locationManager?.removeUpdates(locationListener)
 
-
                 // 위치정보 프래그먼트 전달
                 val bundle = Bundle()
                 if(curLatitude != LOCATION_NOT_SET && curLongitude != LOCATION_NOT_SET){
@@ -69,7 +73,7 @@ class LocationFragment : Fragment() {
                     bundle.putDouble("curY", tmp!!.y)
                     frag.arguments = bundle
 
-                    // 내부 저장소 저장
+                    // 내부 저장소에 기본 위치 저장
                     val os = activity?.openFileOutput("defaultLocation", MODE_PRIVATE)
                     val bw = BufferedWriter(OutputStreamWriter(os))
                     // 개행 여부로 x, y 구분
@@ -100,10 +104,10 @@ class LocationFragment : Fragment() {
             == PackageManager.PERMISSION_GRANTED) {
             try {
                 locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
-                locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100L, 0f, locationListener)
-                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100L, 0f, locationListener)
+                locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000L, 0f, locationListener)
+                locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000L, 0f, locationListener)
             } catch(ex: SecurityException) {
-                Log.d("myTag", "Security Exception, no location available")
+                Log.d("NO_LOCATION", "Security Exception, no location available")
             }
         } else {
             ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)

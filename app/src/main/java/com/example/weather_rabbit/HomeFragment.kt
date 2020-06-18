@@ -35,6 +35,24 @@ class HomeFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
+
+        // 이미 지역 위치가 설정되어 있는지 확인
+        val file = context?.getFileStreamPath("defaultLocation")
+        if(file != null && file!!.exists()){
+            val os = activity?.openFileInput("defaultLocation")
+            val br = BufferedReader(InputStreamReader(os))
+            val str = br.readLine()
+            if(str != null){
+                curX = str.toDouble()
+                curY = br.readLine().toDouble()
+                if(networkTask.status != AsyncTask.Status.RUNNING){
+                    if(networkTask.status == AsyncTask.Status.FINISHED){
+                        networkTask = NetworkTask()
+                    }
+                    networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
+                }
+            }
+        }
         super.onCreate(savedInstanceState)
     }
 
@@ -64,35 +82,6 @@ class HomeFragment : Fragment(){
         super.onResume()
         activity?.invalidateOptionsMenu()
 
-        // 이미 지역 위치가 설정되어 있는지 확인
-        val file = context?.getFileStreamPath("defaultLocation")
-        if(file != null && file!!.exists()){
-            val os = activity?.openFileInput("defaultLocation")
-            val br = BufferedReader(InputStreamReader(os))
-            val str = br.readLine()
-            if(str != null){
-                curX = str.toDouble()
-                curY = br.readLine().toDouble()
-                if(networkTask.status == AsyncTask.Status.PENDING || networkTask.status == AsyncTask.Status.FINISHED){
-                    networkTask = NetworkTask()
-                    networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-                }
-            }
-
-        }
-
-//        if(arguments!=null){
-//            curY = arguments?.getDouble("curY")!!
-//            curX = arguments?.getDouble("curX")!!
-//            if(networkTask.status == AsyncTask.Status.PENDING || networkTask.status == AsyncTask.Status.FINISHED){
-//                networkTask = NetworkTask()
-//                networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-//            }
-//        }
-
-//        if(curX != NOT_SET && curY != NOT_SET && networkTask.status == AsyncTask.Status.FINISHED){
-//            networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -184,9 +173,12 @@ class HomeFragment : Fragment(){
 //            return connection.responseCode.toString()
         }
 
-        override fun onPostExecute(result: Double?) {
+        override fun onPostExecute(result: Double) {
             super.onPostExecute(result)
             t3hText.text = result.toString()
+            val trans = fragmentManager?.beginTransaction()
+            trans?.add(R.id.card_container, CardFragment(result))
+            trans?.commit()
         }
 
         // 일의자리 수일 경우 앞에 0 붙이기

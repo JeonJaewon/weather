@@ -4,28 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:id="@+id/frag_location_layout"
+    android:background="@color/heavyBlue"
     tools:context=".LocationFragment">
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/locationRecycler"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content">-->
-<!--    </androidx.recyclerview.widget.RecyclerView>-->
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="현재 위치는"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:text="우측 상단의 + 버튼을 눌러\n현재 지역 정보를 받아오세요."
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="20sp" />
-
+    <ImageView
+        android:layout_marginTop="60dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_location_on_24"
+        android:tint="#FFFFFF"
+        android:layout_gravity="center">
+    </ImageView>
     <TextView
         android:id="@+id/locationTextView"
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="plcaeholder"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="지역 정보 수신이 완료되면\n여기에 표시됩니다"
+        android:textAlignment="center"
         android:textSize="24sp"
+        android:textColor="#FFFFFF"
         android:textStyle="bold" />
+
 </LinearLayout>

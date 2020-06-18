@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frag_home_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-<!--    <include layout="@layout/main_toolbar"/>-->
-
+    android:orientation="vertical">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <RelativeLayout
-            android:background="#284184"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/heavyBlue">
+
             <TextView
                 android:id="@+id/location_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="40dp"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
+                android:layout_marginRight="20dp"
                 android:fontFamily="@font/nanum_barun_gothic"
-                android:text="New York" />
+                android:text="201611234 전재원"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginRight="40dp"
-                android:textSize="20sp"
-                android:textColor="#FFFFFF"
                 android:fontFamily="@font/nanum_barun_gothic"
-                android:text="2020 06 16"/>
+                android:text="2020 06 16"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/weather_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="60dp"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@id/date_text"
-                app:srcCompat="@drawable/sun"/>
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp"
+                app:srcCompat="@drawable/sun" />
 
             <TextView
                 android:id="@+id/t3h_text"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/weather_icon"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:textSize="40sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/nanum_barun_gothic"
+                android:text="지역 설정이\n필요합니다"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
-                android:fontFamily="@font/nanum_barun_gothic"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/weather_icon"
-                android:text="온도" />
+                android:textSize="40sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="20dp"
@@ -72,17 +72,37 @@
                 android:layout_marginTop="40dp"
                 android:layout_toRightOf="@id/t3h_text"
                 android:src="@drawable/celsius" />
-            <fragment
-                android:id="@+id/cloth_card"
-                tools:layout="@layout/fragment_card"
-                android:layout_height="100dp"
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/t3h_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="현재 지역의 기상청 동네 예보 데이터입니다.\n해당 기온에 맞는 옷차림은"
+                android:textSize="15sp"
+                android:textColor="#FFFFFF"/>
+
+            <LinearLayout
+                android:id="@+id/card_container"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/description_text"
                 android:layout_marginTop="30dp"
-                android:layout_marginHorizontal="30dp"
-                android:name="com.example.weather_rabbit.CardFragment"
-                android:layout_below="@id/t3h_text">
-            </fragment>
+                android:orientation="vertical"></LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Icon made by Smashicons from www.flaticon.com\nIcon made by Nikita Golubev from www.flaticon.com"
+                android:textSize="12sp"
+                android:textColor="#FFFFFF"/>
         </RelativeLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </LinearLayout>
