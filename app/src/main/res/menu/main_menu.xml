@@ -6,8 +6,8 @@
         android:id="@+id/location_item"
         app:showAsAction="always"/>
     <item
-        android:title="나의 옷장"
-        android:id="@+id/closet_item"
+        android:title="개발자 정보"
+        android:id="@+id/dev_item"
         app:showAsAction="never"/>
     <item
         android:title="설정"

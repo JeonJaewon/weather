@@ -3,9 +3,11 @@ import android.Manifest
 import android.content.Context.LOCATION_SERVICE
 import android.content.Context.MODE_PRIVATE
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -16,9 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.BufferedOutputStream
-import java.io.BufferedWriter
-import java.io.OutputStreamWriter
+import kotlinx.android.synthetic.main.fragment_location.*
+import java.io.*
 
 class LocationFragment : Fragment() {
     val TO_GRID = 0
@@ -27,6 +28,8 @@ class LocationFragment : Fragment() {
     lateinit var locationManager : LocationManager
     var curLatitude = LOCATION_NOT_SET
     var curLongitude = LOCATION_NOT_SET
+
+    lateinit var bundle : Bundle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
@@ -40,6 +43,26 @@ class LocationFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_location, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val file = context?.getFileStreamPath("defaultLocation")
+        if (file != null && file!!.exists()) {
+            val os = activity?.openFileInput("defaultLocation")
+            val br = BufferedReader(InputStreamReader(os))
+            val str = br.readLine()
+            if (str != null) {
+                val x = str.toDouble()
+                val y = br.readLine().toDouble()
+                val gps = convertGRID_GPS(TO_GPS, x, y)!!
+                val geocoder = Geocoder(activity)
+                val resultList = geocoder.getFromLocation(gps.lat, gps.lng, 1)
+                this.curLatitude = gps.lat
+                this.curLongitude = gps.lng
+                locationTextView.text = resultList[0].countryName +" "+ resultList[0].adminArea
+            }
+        }
+    }
     override fun onResume() {
         super.onResume()
         activity?.invalidateOptionsMenu()
@@ -51,7 +74,6 @@ class LocationFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        locationManager?.removeUpdates(locationListener)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -61,16 +83,17 @@ class LocationFragment : Fragment() {
                 val transaction = fm?.beginTransaction()
                 val frag = HomeFragment()
 
+                bundle = Bundle()
                 //위치 정보 수신 종료
                 locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
                 locationManager?.removeUpdates(locationListener)
 
                 // 위치정보 프래그먼트 전달
-                val bundle = Bundle()
                 if(curLatitude != LOCATION_NOT_SET && curLongitude != LOCATION_NOT_SET){
                     val tmp = convertGRID_GPS(TO_GRID, curLatitude, curLongitude)
                     bundle.putDouble("curX", tmp!!.x)
                     bundle.putDouble("curY", tmp!!.y)
+                    bundle.putString("locationText", locationTextView.text.toString())
                     frag.arguments = bundle
 
                     // 내부 저장소에 기본 위치 저장
@@ -78,14 +101,15 @@ class LocationFragment : Fragment() {
                     val bw = BufferedWriter(OutputStreamWriter(os))
                     // 개행 여부로 x, y 구분
                     bw.write(tmp.x.toString() + "\n")
-                    bw.write(tmp.y.toString())
+                    bw.write(tmp.y.toString() + "\n")
+                    bw.write(locationTextView.text.toString())
                     bw.flush()
                 }
 
                 // 동일한 프래그먼트가 스택에 여러개 쌓이지 않게..
                 fm?.popBackStack(this.javaClass.simpleName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 transaction?.replace(R.id.main_frag_container, frag)?.commit()
-                transaction?.addToBackStack(this.javaClass.simpleName)
+//                transaction?.addToBackStack(this.javaClass.simpleName)
 
                 return true
             }
@@ -112,17 +136,23 @@ class LocationFragment : Fragment() {
         } else {
             ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 100)
+
         }
     }
 
     private val locationListener : LocationListener = object : LocationListener{
         override fun onLocationChanged(location: Location?) {
-            if(location!=null){
-                curLatitude = location?.latitude
-                curLongitude = location?.longitude
+            if(location != null){
+                curLatitude = location.latitude
+                curLongitude = location.longitude
             }
-            Toast.makeText(activity, location?.longitude.toString() + ", " + location?.latitude, Toast.LENGTH_SHORT).show()
-
+//            Toast.makeText(activity, location?.longitude.toString() + ", " + location?.latitude, Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "위치 정보 수신 완료!", Toast.LENGTH_SHORT).show()
+            val geocoder = Geocoder(activity)
+            val resultList = geocoder.getFromLocation(curLatitude, curLongitude, 1)
+            locationTextView.text = resultList[0].countryName +" "+ resultList[0].adminArea
+            locationManager = activity?.getSystemService(LOCATION_SERVICE) as LocationManager
+            locationManager?.removeUpdates(this)
         }
 
         override fun onStatusChanged(p0: String?, p1: Int, p2: Bundle?) {

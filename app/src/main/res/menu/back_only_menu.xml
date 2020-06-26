@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:title="뒤로 가기"
+        android:icon="@drawable/ic_chevron_left_black_24dp"
+        android:id="@+id/dev_back"
+        app:showAsAction="always"></item>
+</menu>

@@ -63,17 +63,33 @@ class HomeFragment : Fragment() {
         //swipe layout
         swipe_layout.setOnRefreshListener {
             swipe_layout.isRefreshing = true
-            if (arguments != null) {
+            val file = context?.getFileStreamPath("defaultLocation")
+            if (file != null && file!!.exists()) {
+                val os = activity?.openFileInput("defaultLocation")
+                val br = BufferedReader(InputStreamReader(os))
+                val str = br.readLine()
+                if (str != null) {
+                    curX = str.toDouble()
+                    curY = br.readLine().toDouble()
+                }
                 if (networkTask.status == AsyncTask.Status.FINISHED) {
                     networkTask = NetworkTask()
                     networkTask.execute(arrayOf(curX, curY)) //매개변수 넣기
-                    curY = arguments?.getDouble("curY")!!
-                    curX = arguments?.getDouble("curX")!!
                 }
             }
             swipe_layout.isRefreshing = false
         }
+
         // 홈 프래그먼트의 각종 뷰 날씨에 따라 초기화
+        val file = context?.getFileStreamPath("defaultLocation")
+        if (file != null && file!!.exists()) {
+            val os = activity?.openFileInput("defaultLocation")
+            val br = BufferedReader(InputStreamReader(os))
+            br.readLine()
+            br.readLine()
+            val str = br.readLine()
+            location_text.text = str
+        }
         DisplayInitializer(this).init()
         super.onViewCreated(view, savedInstanceState)
     }
@@ -100,7 +116,14 @@ class HomeFragment : Fragment() {
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 transaction?.replace(R.id.main_frag_container, frag)?.commit()
-                transaction?.addToBackStack(this.javaClass.simpleName)
+//                transaction?.addToBackStack(this.javaClass.simpleName)
+                return true
+            }
+            R.id.dev_item -> {
+                val fm = activity?.supportFragmentManager
+                val transaction = fm?.beginTransaction()
+                val frag = DeveloperFragment()
+                transaction?.replace(R.id.main_frag_container, frag)?.commit()
                 return true
             }
             R.id.settings_item -> {
