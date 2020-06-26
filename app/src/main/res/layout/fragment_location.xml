@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/frag_location_layout"
-    android:background="@color/heavyBlue"
+    android:background="@color/steel"
     tools:context=".LocationFragment">
     <TextView
         android:id="@+id/textView"

@@ -9,7 +9,10 @@ import kotlinx.android.synthetic.main.fragment_card.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 //
-class CardFragment(val t3hValue: Double) : Fragment() {
+class CardFragment(val data : CardData) : Fragment() {
+    val t3hValue = data.t3hValue
+    val rehValue = data.rehValue
+    val popValue = data.popValue
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,6 +31,7 @@ class CardFragment(val t3hValue: Double) : Fragment() {
     }
 
     private fun init() {
+        pop_text.text = "강수확률 : " + popValue.toString() + "%"
         if (23.0 <= t3hValue) {
             wear_text.text = "반팔 티셔츠"
             wear_image.setImageResource(R.drawable.shirt2)

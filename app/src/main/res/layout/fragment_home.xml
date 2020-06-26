@@ -5,7 +5,7 @@
     android:id="@+id/frag_home_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/heavyBlue"
+    android:background="@color/steel"
     android:orientation="vertical">
     <View
         android:id="@+id/divider"
@@ -17,84 +17,89 @@
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <RelativeLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/location_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/nanum_barun_gothic"
-                android:text="201611234 전재원"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/date_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/nanum_barun_gothic"
-                android:text="2020 06 16"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:id="@+id/weather_icon"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/date_text"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="60dp"
-                app:srcCompat="@drawable/sun" />
-
-            <TextView
-                android:id="@+id/t3h_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/weather_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/nanum_barun_gothic"
-                android:text="지역 설정이\n필요합니다"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_below="@id/weather_icon"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="40dp"
-                android:layout_toRightOf="@id/t3h_text"
-                android:src="@drawable/celsius" />
-
-            <TextView
-                android:id="@+id/description_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/t3h_text"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="15dp"
-                android:gravity="center"
-                android:text="현재 지역의 기상청 동네 예보 데이터입니다."
-                android:textSize="15sp"
-                android:textColor="#FFFFFF"/>
-
-            <LinearLayout
-                android:id="@+id/card_container"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/description_text"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical"></LinearLayout>
-        </RelativeLayout>
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/location_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/nanum_barun_gothic"
+                    android:text="201611234 전재원"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/date_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanum_barun_gothic"
+                    android:text="2020 06 16"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/weather_icon"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_below="@id/date_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="60dp"
+                    app:srcCompat="@drawable/sun" />
+
+                <TextView
+                    android:id="@+id/t3h_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/weather_icon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/nanum_barun_gothic"
+                    android:text="지역 설정이\n필요합니다"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="40sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_below="@id/weather_icon"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_toRightOf="@id/t3h_text"
+                    android:src="@drawable/celsius" />
+
+                <TextView
+                    android:id="@+id/high_low_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/t3h_text"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="현재 지역의 기상청 동네 예보 데이터입니다."
+                    android:textSize="15sp"
+                    android:textColor="#FFFFFF"/>
+
+                <LinearLayout
+                    android:id="@+id/card_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/high_low_text"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"></LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
